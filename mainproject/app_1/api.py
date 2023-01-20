@@ -23,7 +23,7 @@ class RegisterApi(generics.GenericAPIView):
 
 
 @authentication_classes([BasicAuthentication])
-@api_view(('GET'))
+@api_view(('GET',))
 def GetAllMovie(request):
     hit = request.session.get('hit')
 
@@ -50,7 +50,7 @@ def GetAllMovie(request):
     return Response(data)
 
 
-@api_view(('GET'))
+@api_view(('GET',))
 def session_hit_counter(request):
     hit = request.session.get('hit')
     if not hit:
