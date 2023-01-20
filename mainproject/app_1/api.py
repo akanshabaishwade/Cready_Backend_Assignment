@@ -1,4 +1,5 @@
 from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.pagination import PageNumberPagination # add for Pagination
 from rest_framework.authentication import BasicAuthentication
 from .serializer import RegisterSerializer, UserSerializer
 from requests.adapters import HTTPAdapter, Retry
@@ -22,10 +23,13 @@ class RegisterApi(generics.GenericAPIView):
         })
 
 
+
 @authentication_classes([BasicAuthentication])
 @api_view(('GET',))
 def GetAllMovie(request):
     hit = request.session.get('hit')
+    paginator = PageNumberPagination()
+    paginator.page_size = 10
 
     s = requests.Session()
     retries = Retry(total=5, backoff_factor=1,
